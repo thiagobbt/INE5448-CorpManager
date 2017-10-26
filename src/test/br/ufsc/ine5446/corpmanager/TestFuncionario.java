@@ -36,6 +36,11 @@ public class TestFuncionario {
 	}
 	
 	@Test(expected = Exception.class)
+	public void removeOcorrenciaNaoRelacionada() throws Exception {
+		umFuncionario.removeOcorrencia(new Ocorrencia());
+	}
+	
+	@Test(expected = Exception.class)
 	public void adicionaMaisResponsabilidadesQueOPermitido() throws Exception {
 		umFuncionario.definirResponsabilidade(new Ocorrencia(umFuncionario));
 		umFuncionario.definirResponsabilidade(new Ocorrencia(umFuncionario));

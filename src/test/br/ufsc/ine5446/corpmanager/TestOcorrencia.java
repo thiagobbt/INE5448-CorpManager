@@ -24,8 +24,50 @@ public class TestOcorrencia {
 	}
 	
 	@Test
-	public void checaResponsavel() throws Exception {
+	public void verificaResponsavel() throws Exception {
 		assertEquals(umFuncionario, umaOcorrencia.responsavel());
+	}
+	
+	@Test
+	public void verificaPrioridadeInicial() throws Exception {
+		assertEquals(Ocorrencia.Prioridade.MEDIA, umaOcorrencia.prioridade());
+	}
+	
+	@Test
+	public void mudaPrioridade() throws Exception {
+		umaOcorrencia.definePrioridade(Ocorrencia.Prioridade.ALTA);
+		assertEquals(Ocorrencia.Prioridade.ALTA, umaOcorrencia.prioridade());
+	}
+	
+	@Test(expected = Exception.class)
+	public void mudaPrioridadeOcorrenciaFechada() throws Exception {
+		umaOcorrencia.fechar();
+		umaOcorrencia.definePrioridade(Ocorrencia.Prioridade.ALTA);
+	}
+	
+	@Test
+	public void mudaResponsavel() throws Exception {
+		Funcionario novoFuncionario = new Funcionario();
+		umaOcorrencia.mudaResponsavel(novoFuncionario);
+		
+		assertFalse(umFuncionario.getResponsabilidades().contains(umaOcorrencia));
+		assertEquals(novoFuncionario, umaOcorrencia.responsavel());
+		assertTrue(novoFuncionario.getResponsabilidades().contains(umaOcorrencia));
+	}
+	
+	@Test
+	public void mudaResponsavelDeOcorrenciaSemResponsavel() throws Exception {
+		Ocorrencia novaOcorrencia = new Ocorrencia();
+		Funcionario novoFuncionario = new Funcionario();
+		novaOcorrencia.mudaResponsavel(novoFuncionario);
+		
+		assertEquals(novoFuncionario, novaOcorrencia.responsavel());
+	}
+	
+	@Test(expected = Exception.class)
+	public void mudaResponsavelDeOcorrenciaFechada() throws Exception {
+		umaOcorrencia.fechar();
+		umaOcorrencia.mudaResponsavel(new Funcionario());
 	}
 	
 	@Test
@@ -45,5 +87,12 @@ public class TestOcorrencia {
 	public void verificaStatusEnum() throws Exception {
 		assertEquals(Ocorrencia.Status.ABERTA, Ocorrencia.Status.valueOf("ABERTA"));
 		assertEquals(Ocorrencia.Status.FECHADA, Ocorrencia.Status.valueOf("FECHADA"));
+	}
+	
+	@Test
+	public void verificaPrioridadeEnum() throws Exception {
+		assertEquals(Ocorrencia.Prioridade.ALTA, Ocorrencia.Prioridade.valueOf("ALTA"));
+		assertEquals(Ocorrencia.Prioridade.MEDIA, Ocorrencia.Prioridade.valueOf("MEDIA"));
+		assertEquals(Ocorrencia.Prioridade.BAIXA, Ocorrencia.Prioridade.valueOf("BAIXA"));
 	}
 }

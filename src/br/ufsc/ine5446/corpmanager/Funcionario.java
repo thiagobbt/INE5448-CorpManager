@@ -36,4 +36,12 @@ public class Funcionario {
 	public Collection<Ocorrencia> getResponsabilidades() {
 		return ocorrenciasAbertasResponsavel;
 	}
+
+	public void removeOcorrencia(Ocorrencia ocorrencia) throws Exception {
+		if (ocorrenciasAbertasResponsavel.contains(ocorrencia)) {
+			ocorrenciasAbertasResponsavel.remove(ocorrencia);
+		} else {
+			throw new Exception("Ocorrência não existe na lista de responsabilidades");
+		}
+	}
 }
