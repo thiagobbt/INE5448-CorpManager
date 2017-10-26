@@ -4,6 +4,7 @@ public class Ocorrencia {
 	private Funcionario responsavel;
 	private Status status;
 	private Prioridade prioridade;
+	private Tipo tipo;
 	
 	public enum Status {
 		ABERTA,
@@ -16,14 +17,32 @@ public class Ocorrencia {
 		BAIXA
 	}
 	
+	public enum Tipo {
+		TAREFA,
+		BUG,
+		MELHORIA
+	}
+	
 	public Ocorrencia() {
-		status = Status.ABERTA;
-		prioridade = Prioridade.MEDIA;
+		this.status = Status.ABERTA;
+		this.prioridade = Prioridade.MEDIA;
+		this.tipo = Tipo.MELHORIA;
+	}
+	
+	public Ocorrencia(Tipo tipo) {
+		this();
+		this.tipo = tipo;
 	}
 
 	public Ocorrencia(Funcionario umFuncionario) throws Exception {
 		this();
-		responsavel = umFuncionario;
+		this.responsavel = umFuncionario;
+		umFuncionario.definirResponsabilidade(this);
+	}
+	
+	public Ocorrencia(Funcionario umFuncionario, Tipo tipo) throws Exception {
+		this(tipo);
+		this.responsavel = umFuncionario;
 		umFuncionario.definirResponsabilidade(this);
 	}
 
@@ -33,6 +52,10 @@ public class Ocorrencia {
 	
 	public Prioridade prioridade() {
 		return prioridade;
+	}
+	
+	public Tipo tipo() {
+		return tipo;
 	}
 
 	public Funcionario responsavel() {
@@ -61,5 +84,4 @@ public class Ocorrencia {
 		responsavel = novoFuncionario;
 		novoFuncionario.definirResponsabilidade(this);
 	}
-
 }

@@ -19,6 +19,19 @@ public class TestOcorrencia {
 	}
 	
 	@Test
+	public void criaOcorrencia() throws Exception {
+		new Ocorrencia(umFuncionario);
+	}
+	
+	@Test
+	public void criaOcorrenciaComTipo() throws Exception {
+		Ocorrencia novaOcorrencia = new Ocorrencia(umFuncionario, Ocorrencia.Tipo.TAREFA);
+		assertEquals(Ocorrencia.Tipo.TAREFA, novaOcorrencia.tipo());
+		assertEquals(umFuncionario, novaOcorrencia.responsavel());
+		assertTrue(umFuncionario.getResponsabilidades().contains(novaOcorrencia));
+	}
+	
+	@Test
 	public void statusInicialEhAberto() throws Exception {
 		assertEquals(Ocorrencia.Status.ABERTA, umaOcorrencia.status());
 	}
@@ -31,6 +44,11 @@ public class TestOcorrencia {
 	@Test
 	public void verificaPrioridadeInicial() throws Exception {
 		assertEquals(Ocorrencia.Prioridade.MEDIA, umaOcorrencia.prioridade());
+	}
+	
+	@Test
+	public void verificaTipoPadrao() throws Exception {
+		assertEquals(Ocorrencia.Tipo.MELHORIA, umaOcorrencia.tipo());
 	}
 	
 	@Test
@@ -94,5 +112,12 @@ public class TestOcorrencia {
 		assertEquals(Ocorrencia.Prioridade.ALTA, Ocorrencia.Prioridade.valueOf("ALTA"));
 		assertEquals(Ocorrencia.Prioridade.MEDIA, Ocorrencia.Prioridade.valueOf("MEDIA"));
 		assertEquals(Ocorrencia.Prioridade.BAIXA, Ocorrencia.Prioridade.valueOf("BAIXA"));
+	}
+	
+	@Test
+	public void verificaTipoEnum() throws Exception {
+		assertEquals(Ocorrencia.Tipo.TAREFA, Ocorrencia.Tipo.valueOf("TAREFA"));
+		assertEquals(Ocorrencia.Tipo.BUG, Ocorrencia.Tipo.valueOf("BUG"));
+		assertEquals(Ocorrencia.Tipo.MELHORIA, Ocorrencia.Tipo.valueOf("MELHORIA"));
 	}
 }
