@@ -13,18 +13,18 @@ public class TestEmpresa {
 	Empresa aEmpresa;
 	
 	@Before
-	public void configuration() {
+	public void configuracao() {
 		aEmpresa = new Empresa();
 	}
 	
 	@Test
-	public void addEmployee() throws Exception {
+	public void adicionaFuncionario() throws Exception {
 		aEmpresa.adicionaFuncionario(new Funcionario());
 		assertEquals(1, aEmpresa.numeroFuncionarios());
 	}
 	
 	@Test
-	public void addProject() throws Exception {
+	public void adicionaProjeto() throws Exception {
 		aEmpresa.adicionaProjeto(new Projeto());
 		assertEquals(1, aEmpresa.numeroProjetos());
 	}

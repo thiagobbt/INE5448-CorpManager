@@ -20,9 +20,9 @@ public class Projeto {
 		return funcionarios.size();
 	}
 
-	public void adicionaOcorrencia(Ocorrencia umaOcorrencia, Funcionario umFuncionario) throws Exception {
-		if (funcionarios.contains(umFuncionario)) {
-			umFuncionario.definirResponsabilidade(umaOcorrencia);
+	public void adicionaOcorrencia(Ocorrencia umaOcorrencia) throws Exception {
+		Funcionario funcionarioResponsavel = umaOcorrencia.responsavel();
+		if (funcionarios.contains(funcionarioResponsavel)) {
 			ocorrencias.add(umaOcorrencia);
 		} else {
 			throw new Exception("Funcionario não trabalha nesse projeto.");
